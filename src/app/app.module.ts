@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'topic?:id', component: PostsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full'}
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent }
 ];
 

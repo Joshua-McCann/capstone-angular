@@ -2,11 +2,9 @@
 <mat-toolbar>
   <img src="/src/images/McCanicle.png" style="width: 3em; height: 3em;">
   <nav>
-    <a mat-button (click)="goTo('home')" routerLink='/home' routerLinkActive='active'>Home</a>
-    <a mat-button (click)="goTo('topic')" routerLink='/topic' routerLinkActive='active'>Topics</a>
-    <div *ngIf="logout; then loginBlock else logoutBlock"></div>
+    <a mat-button (click)="goTo(linkList.Home)">{{linkList.Home}}</a>
+    <a mat-button (click)="goTo(linkList.Topic)">{{linkList.Topic}}</a>
+    <a mat-button (click)="goTo(linkList.Login)">{{linkList.Login}}</a>
   </nav>
-  <ng-template #loginBlock><a mat-button (click)="loginPress()" routerLink='/login' routerLinkActive='active'>Login</a></ng-template>
-  <ng-template #logoutBlock><a mat-button (click)="loginPress()" routerLink='/logout' routerLinkActive='active'>Logout</a></ng-template>
 </mat-toolbar>
 <router-outlet></router-outlet>

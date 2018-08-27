@@ -1,3 +1,46 @@
 <p>
-  login works!
+  <mat-card>
+    <mat-tab-group>
+      <mat-tab label="Login">
+        <form>
+          <div>
+            <mat-form-field>
+              <input [(ngModel)]="username" name="username" matInput placeholder="Username">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field>
+              <input type="password" [(ngModel)]="password" name="password" matInput placeholder="Password">
+            </mat-form-field>
+          </div>
+          <button mat-flat-button (click)="submit()">submit</button>
+          <button mat-flat-button (click)="clear()">clear</button>
+        </form>
+      </mat-tab>
+      <mat-tab label="Register">
+        <form>
+          <div>
+            <mat-form-field>
+              <input [(ngModel)]="username" name="username" matInput placeholder="Username">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field>
+              <input type="password" [(ngModel)]="password" name="password" matInput placeholder="Password">
+            </mat-form-field>
+            <mat-form-field>
+              <input type="password" [(ngModel)]="password_check" name="password_check" matInput placeholder="Verify Password">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field>
+              <input [(ngModel)]="email" name="email" matInput placeholder="Email Address">
+            </mat-form-field>
+          </div>
+          <button mat-flat-button (click)="register()">register</button>
+          <button mat-flat-button (click)="clear()">clear</button>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
 </p>

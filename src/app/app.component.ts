@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from './user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,24 +8,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Home';
-  logout = true;
+
+  public title = 'Home';
+
+  public linkList = {
+    Home: 'Home',
+    Topic: 'Topic',
+    Login: 'Login'
+  };
+
+  constructor(private userServ: UserService, private router: Router) {  }
 
   public ngOnInit() {
     console.log('App init');
+    this.userServ.loggedIn$.subscribe(any => {
+      console.log('detected change ' + any);
+      this.replaceLogin(any);
+      this.goTo('Home');
+    });
   }
 
-  public goTo(location){
+  public goTo(location: string) {
     this.title = location;
+    const navigation = '/' + location.toLowerCase();
+    this.router.navigate([navigation]);
   }
 
-  public loginPress() {
-    this.logout = !this.logout;
-    if (this.logout) {
-      this.title = "logout";
-    } else {
-      this.title = "login";
-    }
+  replaceLogin(x: string) {
+    this.linkList.Login = x;
   }
 
 }

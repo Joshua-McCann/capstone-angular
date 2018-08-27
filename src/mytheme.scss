@@ -27,4 +27,68 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     background-color: #8060C0;
     padding: .5em;
   }
+
+  mat-card {
+    margin: 1em;
+  }
+
+  mat-card-title, .mat-tab-labels {
+    margin: 0;
+    background-color: black;
+    color: FireBrick;
+    padding: 1em;
+
+    .mat-tab-label {
+      margin: 4px;
+      padding: 0;
+    }
+
+    .mat-tab-label-content {
+      margin: 0;
+      padding: 0;
+      font-size: 1.5em;
+      color: FireBrick;
+    }
+  }
+
+  mat-card-content {
+    margin: 0;
+    background-color: khaki;
+    color: black;
+    padding: 1em;
+  }
+
+  .mat-form-field-wrapper, button {
+    margin: 4px;
+  }
+
+  .mat-tab-body-content {
+    margin: 0;
+    background-color: khaki;
+    color: black;
+    padding: 0;
+
+    form {
+      padding: 1em;
+      color: black;
+    }
+
+    label {
+      color: grey;
+    }
+
+    .mat-form-field-underline {
+      background-color: grey;
+    }
+  }
+
+  .error-snackbar {
+    font-weight: bolder;
+    font-family: "Arial Black", serif;
+    background: lightpink;
+    color: red;
+    border: 1px solid red;
+  }
+
+
 }

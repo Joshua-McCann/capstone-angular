@@ -24,7 +24,9 @@ export class AppComponent implements OnInit {
     this.userServ.loggedIn$.subscribe(any => {
       console.log('detected change ' + any);
       this.replaceLogin(any);
-      this.goTo('Home');
+      if (any === 'Logout') {
+        this.goTo('Home');
+      }
     });
   }
 

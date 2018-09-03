@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatInputModule, MatSnackBarModule, MatTabsModule} from '@angular/material';
+import {MatInputModule, MatPaginatorModule, MatSnackBarModule, MatTableModule, MatTabsModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -23,7 +23,7 @@ import {FormsModule} from '@angular/forms';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'topic', component: TopicComponent },
-  { path: 'topic?:id', component: PostsComponent },
+  { path: 'topic/:id', component: PostsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -47,6 +47,8 @@ const routes: Routes = [
     MatTabsModule,
     MatInputModule,
     MatSnackBarModule,
+    MatTableModule,
+    MatPaginatorModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,

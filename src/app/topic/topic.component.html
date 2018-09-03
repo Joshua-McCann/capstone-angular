@@ -2,27 +2,46 @@
   <table mat-table [dataSource]="topics.content" class="mat-elevation-z8">
     <ng-container matColumnDef="Id">
       <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell (click)="getTopic(posting.id)" *matCellDef="let posting"> {{posting.id}} </td>
+      <td mat-cell (click)="getTopic(posting.id, posting.topicName)" *matCellDef="let posting"> {{posting.id}} </td>
     </ng-container>
     <ng-container matColumnDef="Topic">
       <th mat-header-cell *matHeaderCellDef> Topic </th>
-      <td mat-cell (click)="getTopic(posting.id)" *matCellDef="let posting"> {{posting.topicName}} </td>
+      <td mat-cell (click)="getTopic(posting.id, posting.topicName)" *matCellDef="let posting"> {{posting.topicName}} </td>
     </ng-container>
     <ng-container matColumnDef="Poster">
       <th mat-header-cell *matHeaderCellDef style="width: 15%"> Created By </th>
-      <td mat-cell (click)="getTopic(posting.id)" *matCellDef="let posting"> {{posting.user.username}} </td>
+      <td mat-cell (click)="getTopic(posting.id, posting.topicName)" *matCellDef="let posting"> {{posting.user.username}} </td>
     </ng-container>
     <ng-container matColumnDef="CreateDate">
       <th mat-header-cell *matHeaderCellDef style="width: 15%"> Date Posted </th>
-      <td mat-cell (click)="getTopic(posting.id)" *matCellDef="let posting"> {{posting.createDate}} </td>
+      <td mat-cell (click)="getTopic(posting.id, posting.topicName)" *matCellDef="let posting"> {{posting.createDate}} </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <div *ngIf="loggedIn()">
+    <div *ngIf="!createTopicB" style="padding: 1em">
+      <button mat-raised-button (click)="createTopic()">Create New Topic</button>
+    </div>
+    <mat-card *ngIf="createTopicB">
+      <mat-card-content style="background-color: darkslategray; color: white;">
+        <form>
+          <mat-form-field>
+            <input type="text" [(ngModel)]="newTopic" name="Topic Title" matInput placeholder="Title">
+          </mat-form-field><br/>
+          <mat-form-field>
+            <textarea type="text" [(ngModel)]="newTopicMessage" name="Topic Content" matInput placeholder="Comment"></textarea>
+          </mat-form-field>
+        </form>
+        <button mat-button (click)="send()">Send</button>
+        <button mat-button (click)="cancel()">Cancel</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
   <div style="background-color: black; color: white; float: right;">
-    <button mat-button *ngIf="hasFirst()" (click)="getFirst()">First</button>
-    <button mat-button *ngIf="hasPrev()" (click)="getPrev()">Prev</button>
-    <button mat-button *ngIf="hasNext()" (click)="getNext()">Next</button>
-    <button mat-button *ngIf="hasLast()" (click)="getLast()">Last</button>
+    <button mat-button [disabled]="hasFirst()" (click)="getFirst()">First</button>
+    <button mat-button [disabled]="hasPrev()" (click)="getPrev()">Prev</button>
+    <button mat-button [disabled]="hasNext()" (click)="getNext()">Next</button>
+    <button mat-button [disabled]="hasLast()" (click)="getLast()">Last</button>
   </div>
 </div>

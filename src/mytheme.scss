@@ -32,22 +32,20 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     margin: 1em;
   }
 
-  mat-card-title, .mat-tab-labels {
-    margin: 0;
+  mat-card-header {
+    padding: .5em;
     background-color: black;
     color: FireBrick;
-    padding: 1em;
 
-    .mat-tab-label {
-      margin: 4px;
-      padding: 0;
+    mat-card-title.mat-card-title {
+      font-weight: bold;
+      font-size: 1.5em;
     }
 
-    .mat-tab-label-content {
-      margin: 0;
-      padding: 0;
-      font-size: 1.5em;
-      color: FireBrick;
+    mat-card-subtitle.mat-card-subtitle {
+      font-weight: bold;
+      font-size: 1em;
+      color: darkred;
     }
   }
 

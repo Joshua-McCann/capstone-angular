@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from './user.service';
 import {Router} from '@angular/router';
+import {TopicService} from './topic.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit {
     Login: 'Login'
   };
 
-  constructor(private userServ: UserService, private router: Router) {  }
+  constructor(private userServ: UserService, private topicService: TopicService, private router: Router) {  }
 
   public ngOnInit() {
     console.log('App init');
@@ -27,6 +28,10 @@ export class AppComponent implements OnInit {
       if (any === 'Logout') {
         this.goTo('Home');
       }
+    });
+
+    this.topicService.topicSelection$.subscribe(any => {
+      this.setTopic(any);
     });
   }
 
@@ -40,4 +45,7 @@ export class AppComponent implements OnInit {
     this.linkList.Login = x;
   }
 
+  setTopic(x: string) {
+    this.title = x;
+  }
 }

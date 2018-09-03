@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.userServ.login('McCanicle', 'TempPassword');
+    this.userServ.login('McCanicle', 'TempPassword');
   }
 
   submit() {

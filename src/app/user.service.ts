@@ -84,4 +84,8 @@ export class UserService {
     this.user = null;
     this.loggedIn$.emit('Login');
   }
+
+  isLoggedIn() {
+    return this.user !== undefined && this.user !== null;
+  }
 }

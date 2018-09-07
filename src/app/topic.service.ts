@@ -6,7 +6,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 })
 export class TopicService {
 
-  private apiURL = `http://localhost:8080/`;
+  private apiURL = `http://40.122.69.107/`;
   public topicSelection$: EventEmitter<string>;
 
   constructor(private http: HttpClient) {

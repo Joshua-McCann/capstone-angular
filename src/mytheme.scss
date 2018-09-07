@@ -88,5 +88,13 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     border: 1px solid red;
   }
 
+  .success-snackbar {
+    font-weight: bolder;
+    font-family: "Arial Black", serif;
+    background: lightgreen;
+    color: darkgreen;
+    border: 1px solid darkgreen;
+  }
+
 
 }

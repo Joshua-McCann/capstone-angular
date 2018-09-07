@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TopicService} from '../topic.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../user.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-posts',
@@ -12,10 +13,10 @@ export class PostsComponent implements OnInit {
 
   public posts;
   public createPostB = false;
-  public newPost = 'blah blah blah';
+  public newPost;
   private topicId;
 
-  constructor(private userService: UserService, private topicService: TopicService, private route: ActivatedRoute, private router: Router) {
+  constructor(private userService: UserService, private topicService: TopicService, private route: ActivatedRoute, private router: Router, private matSnackBar: MatSnackBar) {
     const page = '0';
     const perPage = '10';
     // @ts-ignore
@@ -39,8 +40,23 @@ export class PostsComponent implements OnInit {
     };
 
     this.topicService.sendPosting(posting, this.topicId).subscribe(data => {
-      this.posts.content.push(data);
       this.createPostB = false;
+      this.newPost = '';
+      this.topicService.getPage(this.posts._links.last ? this.posts._links.last.href : this.posts._links.self.href)
+        .subscribe((newPage: Array<object>) => {
+          this.posts = newPage;
+        }, error => {
+          this.matSnackBar.open( error.message, null, {
+            duration: 2500,
+            panelClass: ['error-snackbar']
+          });
+        });
+      },
+      error => {
+        this.matSnackBar.open( error.message, null, {
+          duration: 2500,
+          panelClass: ['error-snackbar']
+      });
     });
   }
 
@@ -80,6 +96,11 @@ export class PostsComponent implements OnInit {
     this.topicService.getPage(this.posts._links.next.href)
       .subscribe((data: Array<object>) => {
         this.posts = data;
+      }, error => {
+        this.matSnackBar.open( error.message, null, {
+          duration: 2500,
+          panelClass: ['error-snackbar']
+        });
       });
   }
 
@@ -87,6 +108,11 @@ export class PostsComponent implements OnInit {
     this.topicService.getPage(this.posts._links.prev.href)
       .subscribe((data: Array<object>) => {
         this.posts = data;
+      }, error => {
+        this.matSnackBar.open( error.message, null, {
+          duration: 2500,
+          panelClass: ['error-snackbar']
+        });
       });
   }
 
@@ -94,6 +120,11 @@ export class PostsComponent implements OnInit {
     this.topicService.getPage(this.posts._links.last.href)
       .subscribe((data: Array<object>) => {
         this.posts = data;
+      }, error => {
+        this.matSnackBar.open( error.message, null, {
+          duration: 2500,
+          panelClass: ['error-snackbar']
+        });
       });
   }
 
@@ -101,6 +132,11 @@ export class PostsComponent implements OnInit {
     this.topicService.getPage(this.posts._links.first.href)
       .subscribe((data: Array<object>) => {
         this.posts = data;
+      }, error => {
+        this.matSnackBar.open( error.message, null, {
+          duration: 2500,
+          panelClass: ['error-snackbar']
+        });
       });
   }
 

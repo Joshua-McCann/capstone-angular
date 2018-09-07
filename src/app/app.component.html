@@ -1,10 +1,8 @@
 <div class="titlebar">{{ title }}</div>
 <mat-toolbar>
-  <img src="/src/images/McCanicle.png" style="width: 3em; height: 3em;">
-  <nav>
-    <a mat-button (click)="goTo(linkList.Home)">{{linkList.Home}}</a>
-    <a mat-button (click)="goTo(linkList.Topic)">{{linkList.Topic}}</a>
-    <a mat-button (click)="goTo(linkList.Login)">{{linkList.Login}}</a>
+  <img src="/images/McCanicle.png" style="width: 3em; height: 3em;">
+  <nav *ngFor="let link of linkList">
+    <a mat-button (click)="goTo(link)">{{link}}</a>
   </nav>
 </mat-toolbar>
 <router-outlet></router-outlet>

@@ -11,15 +11,10 @@ export class AuthorizationService implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('intercepted HTTP call.');
-
     if (localStorage.getItem('token')) {
-      console.log('you are logged in');
       request = request.clone({
         headers: request.headers.set('Authorization', localStorage.getItem('token'))
       });
-    } else {
-      console.log('you are not logged in');
     }
     return next.handle(request);
   }

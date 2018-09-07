@@ -8,15 +8,14 @@ import * as jwtDecode from 'jwt-decode';
 })
 export class UserService {
 
-  public loggedIn$: EventEmitter<string>;
-  private apiURL = `http://localhost:8080/`;
+  public loggedIn$: EventEmitter<boolean>;
+  private apiURL = `http://40.122.69.107/`;
   private user = null;
   private snackBar;
 
   constructor(private http: HttpClient, private matSnackBar: MatSnackBar) {
-    console.log('service created');
     this.snackBar = this.matSnackBar;
-    this.loggedIn$ = new EventEmitter<string>();
+    this.loggedIn$ = new EventEmitter<boolean>();
   }
 
   login(username: string, password: string) {
@@ -30,7 +29,6 @@ export class UserService {
           localStorage.setItem('token', data.headers.get('Authorization').substring(7));
           this.setUser(JSON.parse(jwtDecode(localStorage.getItem('token')).sub));
         }, (error: any) => {
-          console.log(error);
           this.snackBar.open('Unable to login. Please check username and password and try again.', null, {
             duration: 2500,
             panelClass: ['error-snackbar']
@@ -39,7 +37,6 @@ export class UserService {
   }
 
   register(username: string, password: string, passwordCheck: string, email: string) {
-    console.log(password.length);
     if (password.length < 8) {
       this.snackBar.open('Password is less than eight characters long.', null, {
         duration: 2500,
@@ -51,7 +48,6 @@ export class UserService {
         panelClass: ['error-snackbar']
       });
     } else {
-      console.log('registering user');
       this.http.post(this.apiURL + 'user', {username: username, password: password, email: email}, {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
@@ -70,9 +66,44 @@ export class UserService {
     }
   }
 
+  changePassword(userId: string, oldPassword: string, newPassword: string, passwordCheck: string) {
+    if (newPassword.length < 8) {
+      this.snackBar.open('Password is less than eight characters long.', null, {
+        duration: 2500,
+        panelClass: ['error-snackbar']
+      });
+    } else if (newPassword !== passwordCheck) {
+      this.snackBar.open('Passwords don\'t match.', null, {
+        duration: 2500,
+        panelClass: ['error-snackbar']
+      });
+    } else {
+      this.http.put(this.apiURL + 'user', {oldPassword: oldPassword, newPassword: newPassword}, {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/json'),
+        observe: 'response',
+        params: {
+          userId: userId
+        }
+      }).toPromise()
+        .then(
+          (data: any) => {
+            this.snackBar.open('success', null, {
+              duration: 2500,
+              panelClass: ['success-snackbar']
+            });
+          }, (error: any) => {
+          this.snackBar.open(error.error.message, null, {
+              duration: 2500,
+              panelClass: ['error-snackbar']
+          });
+        });
+    }
+  }
+
   setUser(user: string) {
     this.user = user;
-    this.loggedIn$.emit('Logout');
+    this.loggedIn$.emit(true);
   }
 
   getUser() {
@@ -82,7 +113,7 @@ export class UserService {
   logout() {
     localStorage.removeItem('token');
     this.user = null;
-    this.loggedIn$.emit('Login');
+    this.loggedIn$.emit(false);
   }
 
   isLoggedIn() {

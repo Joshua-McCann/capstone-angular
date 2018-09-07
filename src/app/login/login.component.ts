@@ -10,7 +10,7 @@ export class LoginComponent implements OnInit {
 
   public username = '';
   public password = '';
-  public password_check = '';
+  public passwordCheck = '';
   public email = '';
 
   constructor(private userServ: UserService) {
@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userServ.login('McCanicle', 'TempPassword');
   }
 
   submit() {
@@ -28,14 +27,14 @@ export class LoginComponent implements OnInit {
   register() {
     this.userServ.register(this.username,
       this.password,
-      this.password_check,
+      this.passwordCheck,
       this.email);
   }
 
   clear() {
     this.username = '';
     this.password = '';
-    this.password_check = '';
+    this.passwordCheck = '';
     this.email = '';
   }
 
